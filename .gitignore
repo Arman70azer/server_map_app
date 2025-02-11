@@ -1,0 +1,26 @@
+# Node.js dependencies
+/node_modules/
+
+# Fichiers de log
+*.log
+logs/
+
+# Dossiers et fichiers de configuration spécifiques à votre IDE
+.vscode/
+.idea/
+
+# Fichiers de configuration secrets (par exemple, les fichiers .env)
+.env
+.env.*
+
+# Dossier de build (si tu utilises un processus de build comme Webpack)
+dist/
+build/
+
+# Fichiers d'os ou de système
+.DS_Store
+Thumbs.db
+
+# Configuration de l'éditeur (si tu utilises Sublime Text, par exemple)
+*.sublime-workspace
+*.sublime-project
