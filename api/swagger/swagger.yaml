@@ -332,3 +332,31 @@ paths:
           description: Unauthorized request
         500:
           description: Internal server error
+  /api:
+    get:
+      summary: Get data from the JSON file
+      description: Retrieve data from the db.json file
+      responses:
+        200:
+          description: Successful response with the data from db.json
+          operationId: getDbData  # id api module.export
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: ID of the object in the database
+                    name:
+                      type: string
+                      description: Name of the object
+                    avatar:
+                      type: string
+                      description: URL of the avatar
+        500:
+          description: Internal server error
+
