@@ -1,5 +1,6 @@
 // api/controllers/auth.js
 const db = require("../../db.json"); // Chargement de la base de données JSON
+const fs = require("fs");
 
 module.exports = {
   authenticateUser: function (req, res) {
