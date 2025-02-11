@@ -55,9 +55,8 @@ module.exports = {
         return res.status(500).json({ message: "Error saving user" });
       }
 
-      // Génération d'un token factice
-      const access_token = "fake-jwt-token-" + newUser.id;
-      return res.status(201).json({ access_token });
+      
+      return res.status(201);
     });
   }
 };
