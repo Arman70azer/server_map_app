@@ -334,29 +334,18 @@ paths:
           description: Internal server error
   /api:
     get:
-      summary: Get data from the JSON file
-      description: Retrieve data from the db.json file
+      summary: Get all data from the database
+      description: Retrieve the data from the database (db.json)
+      operationId: getDbData
       responses:
         200:
-          description: Successful response with the data from db.json
-          operationId: getDbData  # id api module.export
+          description: Successfully retrieved data
           schema:
             type: object
-            properties:
-              data:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                      description: ID of the object in the database
-                    name:
-                      type: string
-                      description: Name of the object
-                    avatar:
-                      type: string
-                      description: URL of the avatar
+            additionalProperties: true
         500:
           description: Internal server error
+        404:
+          description: Data not found
+
 

@@ -1,16 +1,26 @@
 const express = require("express");
-const SwaggerExpress = require("swagger-express-mw");
+const { getDbData } = require("./api/controllers/getDb");
 
 const app = express();
-const config = { appRoot: __dirname };  // Le chemin vers ton fichier swagger.yml
+const port = 8080;
 
-SwaggerExpress.create(config, (err, swaggerExpress) => {
-  if (err) { throw err; }
-  
-  // Enregistre les routes générées automatiquement par Swagger
-  swaggerExpress.register(app);
+// Utilisation de json pour parser les requêtes entrantes avec un corps JSON
+app.use(express.json());
 
-  // Démarre ton serveur
-  app.listen(8080, () => console.log("API running on http://localhost:8080"));
+// Définir les routes en fonction de swagger.yml
+
+// Endpoint pour récupérer les données de la DB
+app.get("/api", getDbData);
+
+// Autres routes (par exemple pour la mise à jour de l'utilisateur)
+app.put("/users", (req, res) => {
+  const { name, avatar } = req.body;
+  // Logique pour mettre à jour l'utilisateur
+  // Par exemple, modifier le db.json ou répondre avec des données modifiées
+  res.status(200).json({ message: "Utilisateur mis à jour", name, avatar });
 });
 
+// Lancer le serveur
+app.listen(port, () => {
+  console.log(`API running on http://localhost:${port}`);
+});
