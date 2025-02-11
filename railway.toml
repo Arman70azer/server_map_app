@@ -8,14 +8,17 @@
 [[services]]
   name = "api"
   type = "node"
-  # Définir le port pour l'application Express (Railway le gère automatiquement)
   port = 8080
   env = { NODE_ENV = "production" }
 
-  # Si tu utilises une base de données, tu peux l'ajouter ici.
-  # Si tu utilises un fichier JSON comme base de données, tu n'en a pas besoin pour l'instant.
-  #[services.env]
-  #DATABASE_URL = "your_database_url_here"
+  # Configuration du build
+  [build]
+  builder = "node"
+
+  # Commande de déploiement
+  [deploy]
+  command = "npm run start"
+
 
 # Variables d'environnement
 [env]
