@@ -1,36 +1,13 @@
 # railway.toml
 
-# Définit l'environnement du projet
-[project]
-  name = "friend-tracker-api"
-
 # Configuration du service web (Serveur Express)
 [[services]]
-  name = "api"
-  type = "node"
-  port = 8080
-  env = { NODE_ENV = "production" }
+name = "api_map_app"
+type = "node"
 
-  # Configuration du build
-  [build]
-  builder = "node"
+# Commande de déploiement
+[deploy]
+command = "node server.js"
 
-  # Commande de déploiement
-  [deploy]
-  command = "npm run start"
-
-
-# Variables d'environnement
-[env]
-  # Variable d'environnement pour le mode de production
-  NODE_ENV = "production"
-  # Ajouter une clé secrète si nécessaire pour des fonctions comme la validation JWT
-  SECRET_KEY = "your_secret_key_here"
-
-# Si tu utilises une base de données, tu pourrais ajouter des variables d'environnement comme celle-ci:
-#[env]
-# DB_HOST = "localhost"
-# DB_PORT = 5432
-# DB_USER = "your_database_user"
-# DB_PASSWORD = "your_database_password"
-# DB_NAME = "your_database_name"
+# Configuration de l'environnement
+env = { NODE_ENV = "production" }
