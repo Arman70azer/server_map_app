@@ -34,22 +34,27 @@ module.exports = {
       return res.status(409).json({ message: "User already exists" });
     }
 
-    // Crée un nouvel utilisateur
+    // Crée un nouvel utilisateur avec la structure demandée
     const newUser = {
       id: db.users.length + 1,
       email,
-      password // ⚠️ Ne pas stocker en clair (utiliser bcrypt en prod)
+      password, // ⚠️ En prod, utiliser bcrypt pour hasher le mot de passe !
+      connected: false,
+      position: {
+        lat: 0.0,
+        lon: 0.0
+      }
     };
 
     db.users.push(newUser);
 
-    // Écriture dans le fichier db.json (simulé comme une base de données)
-    fs.writeFile(db, JSON.stringify(db, null, 2), (err) => {
+    // Sauvegarde dans db.json
+    fs.writeFile("./db.json", JSON.stringify(db, null, 2), (err) => {
       if (err) {
         return res.status(500).json({ message: "Error saving user" });
       }
 
-      // Génération du token factice
+      // Génération d'un token factice
       const access_token = "fake-jwt-token-" + newUser.id;
       return res.status(201).json({ access_token });
     });
