@@ -1,1 +1,7 @@
-["Saloooooo"]
+{
+    "users": [
+      { "id": 1, "email": "token" },
+      { "id": 2, "email": "token456" }
+    ]
+  }
+  
