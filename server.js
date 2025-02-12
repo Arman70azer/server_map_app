@@ -2,7 +2,7 @@ const express = require("express");
 const { getDbData } = require("./api/controllers/getDb");
 const { authenticateUser, registerUser } = require("./api/controllers/auth");
 const { userLocation } = require("./api/controllers/locations");
-const { deleteFriend } = require("./api/controllers/friends");
+const { deleteFriend, searchFriend } = require("./api/controllers/friends");
 
 const app = express();
 const port = 8080;
@@ -20,6 +20,8 @@ app.post("/auth", authenticateUser);
 app.post("/friends", deleteFriend);
 
 app.post("/locations", userLocation);
+
+app.post("/search", searchFriend);
 
 app.post("/register", registerUser);
 

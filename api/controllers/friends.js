@@ -32,5 +32,27 @@ module.exports = {
     } catch (error) {
       return res.status(500).json({ error: "Erreur lors de la sauvegarde" });
     }
-  }
+  },
+
+    // Méthode pour rechercher un ami
+    searchFriend: function(req, res) {
+        const { email, friend } = req.body;
+
+        // Vérification si l'email est valide et si les deux emails sont différents
+        if (!email || !friend || email === friend) {
+        return res.status(400).json({ message: "Invalid request or same email" });
+        }
+
+        // Recherche dans la base de données si l'email existe
+        const foundFriend = db.users.find(user => user.email === friend);
+
+        if (foundFriend) {
+        // Si l'email existe, retourne juste l'email
+        return res.status(200).json({ email: foundFriend.email });
+        } else {
+        // Si l'email n'existe pas, retourne une erreur
+        return res.status(404).json({ message: "User not found" });
+        }
+    },
+  
 };
