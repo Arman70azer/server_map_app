@@ -24,7 +24,7 @@ module.exports = {
 
         // Sauvegarder les modifications dans le fichier JSON
         try {
-            fs.writeFileSync(dbPath, JSON.stringify(db, null, 2), "utf-8");
+            fs.writeFileSync("./db.json", JSON.stringify(db, null, 2), "utf-8");
         } catch (error) {
             return res.status(500).json({ error: "Erreur lors de la sauvegarde" });
         }
