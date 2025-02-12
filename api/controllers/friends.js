@@ -143,7 +143,7 @@ module.exports = {
         // Sauvegarder les modifications
         try {
             fs.writeFileSync("./db.json", JSON.stringify(db, null, 2), "utf-8");
-            return res.status(200).json(user);
+            return res.status(200).json(friendUser);
         } catch (error) {
             return res.status(500).json({ error: "Erreur lors de la sauvegarde." });
         }
