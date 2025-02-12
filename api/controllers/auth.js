@@ -42,8 +42,8 @@ module.exports = {
       password, // ⚠️ En prod, utiliser bcrypt pour hasher le mot de passe !
       connected: false,
       position: {
-        lat: 0.0,
-        lon: 0.0
+        lat: 0.1,
+        lon: 0.1
       }
     };
 

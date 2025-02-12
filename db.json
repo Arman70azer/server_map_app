@@ -5,8 +5,8 @@
         "lon":0.0
       }, "friends": ["token4@gmail.com"]},
       { "id": 2, "email": "token4@gmail.com", "password": "azerty", "connected": false,"position":{
-        "lat":0.0,
-        "lon":0.0
+        "lat":0.1,
+        "lon":0.1
       }, "friends": ["token@gmail.com"] }
     ]
   }

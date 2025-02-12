@@ -35,8 +35,8 @@ module.exports = {
         // Construire la réponse (liste des amis)
         res.status(200).json(friendsData.map(friend => ({
             email: friend.email,
-            lat: friend.position.lat,
-            lon: friend.position.lon,
+            lat: friend.position.lat.toFixed(6),
+            lon: friend.position.lon.toFixed(6),
             connected: friend.connected
         })));
     }
