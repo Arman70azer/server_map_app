@@ -106,52 +106,59 @@ module.exports = {
 
     acceptInvite: function (req, res) {
         const { email, friend } = req.body;
-
+    
         if (!email || !friend) {
             return res.status(400).json({ error: "Email ou ami manquant." });
         }
-
+    
         // Trouver l'utilisateur actuel et l'ami dans la base de données
         let user = db.users.find(u => u.email === email);
         let friendUser = db.users.find(u => u.email === friend);
-
+    
         if (!user || !friendUser) {
             return res.status(404).json({ error: "Utilisateur ou ami non trouvé." });
         }
-
+    
         // Vérifier si l'ami est bien dans la liste des invitations
-        if (!user.invitations.includes(friend)) {
+        if (!user.invitations || !user.invitations.includes(friend)) {
             return res.status(400).json({ error: "Invitation non trouvée." });
         }
-
+    
         // Ajouter l'ami à la liste des amis de l'utilisateur
         user.friends = user.friends || [];
         if (!user.friends.includes(friend)) {
             user.friends.push(friend);
         }
-
+    
         // Ajouter l'utilisateur à la liste des amis du friendUser
         friendUser.friends = friendUser.friends || [];
         if (!friendUser.friends.includes(email)) {
             friendUser.friends.push(email);
         }
-
+    
         // Supprimer l'invitation après acceptation
         user.invitations = user.invitations.filter(invite => invite !== friend);
         friendUser.invitations = friendUser.invitations.filter(invite => invite !== email);
-
+    
         // Sauvegarder les modifications
         try {
             fs.writeFileSync("./db.json", JSON.stringify(db, null, 2), "utf-8");
+            
+            // S'assurer que les coordonnées sont disponibles
+            const lat = friendUser.position && friendUser.position.lat ? parseFloat(friendUser.position.lat.toFixed(6)) : null;
+            const lon = friendUser.position && friendUser.position.lon ? parseFloat(friendUser.position.lon.toFixed(6)) : null;
+    
+            // Retourner les informations sur l'ami
             return res.status(200).json({
-                email: friend.email,
-                lat: parseFloat(friend.position.lat.toFixed(6)),
-                lon: parseFloat(friend.position.lon.toFixed(6)),
-                connected: friend.connected,
+                email: friendUser.email,
+                lat: lat,
+                lon: lon,
+                connected: friendUser.connected,
             });
         } catch (error) {
             return res.status(500).json({ error: "Erreur lors de la sauvegarde." });
         }
-    }
+    },
+    
   
 };
