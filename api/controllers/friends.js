@@ -31,16 +31,16 @@ module.exports = {
 
         //ex-ami
         let exFriend = db.users.find(u => u.email === friend);
-        if (!user) {
+        if (!exFriend) {
         return res.status(404).json({ error: "Utilisateur non trouvé" });
         }
 
-        const exFriendIndex = exFriend.friends.indexOf(friend);
+        const exFriendIndex = exFriend.friends.indexOf(email);
         if (exFriendIndex === -1){
             return res.status(404).json({ error: "Ami non trouvé dans la liste" });
         }
 
-        exFriend.friends.splice(friendIndex, 1);
+        exFriend.friends.splice(exFriendIndex, 1);
 
         // Sauvegarder les modifications dans le fichier JSON
         try {
