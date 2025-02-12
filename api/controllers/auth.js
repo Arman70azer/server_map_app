@@ -44,7 +44,9 @@ module.exports = {
       position: {
         lat: 0.1,
         lon: 0.1
-      }
+      },
+      friends:[],
+      invitations: [],
     };
 
     db.users.push(newUser);

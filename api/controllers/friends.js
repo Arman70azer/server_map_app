@@ -1,6 +1,10 @@
 const fs = require("fs");
 const db = require("../../db.json"); // Chargement de la base de données
 
+function saveDB(data) {
+    fs.writeFileSync("./db.json", JSON.stringify(data, null, 2), "utf8");
+};
+
 module.exports = {
     deleteFriend: function (req, res) {
         const { email, friend } = req.body;
@@ -55,6 +59,36 @@ module.exports = {
         // Si l'email n'existe pas, retourne une erreur
         return res.status(404).json({ message: "User not found" });
         }
+    },
+
+    inviteUser: function (req, res) {
+        const { email, friend } = req.body;
+
+        if (!email || !friend) {
+            return res.status(400).json({ error: "Les champs 'email' et 'friend' sont requis." });
+        }
+
+        // Trouver l'utilisateur cible (friend)
+        let targetUser = db.users.find(user => user.email === friend);
+        if (!targetUser) {
+            return res.status(404).json({ error: "Utilisateur cible non trouvé." });
+        }
+
+        // Vérifier si l'invitation existe déjà
+        if (targetUser.invitations && targetUser.invitations.includes(email)) {
+            return res.status(409).json({ error: "Invitation déjà envoyée." });
+        }
+
+        // Ajouter l'invitation
+        if (!targetUser.invitations) {
+            targetUser.invitations = []; // S'assurer que le tableau existe
+        }
+        targetUser.invitations.push(email);
+
+        // Sauvegarder les modifications dans la base de données
+        saveDB(db);
+
+        return res.status(200).json({ message: `Invitation envoyée à ${friend}.` });
     },
   
 };
