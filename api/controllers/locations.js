@@ -1,7 +1,4 @@
 const fs = require("fs");
-const path = require("path");
-
-const dbPath = path.join("../../db.json"); // Chemin vers le fichier JSON
 const db = require("../../db.json"); 
 
 module.exports = {
