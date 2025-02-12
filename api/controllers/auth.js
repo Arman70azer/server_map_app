@@ -60,6 +60,31 @@ module.exports = {
       
       return res.status(201).json();
     });
+  },
+
+  delog: function(req, res){
+    const { email } = req.body;
+
+    if (!email ) {
+      return res.status(400).json({ message: "token not send" });
+    }
+
+    // Vérifie si l'email existe déjà
+    let existingUser = db.users.find(u => u.email === email);
+    if (!existingUser) {
+      return res.status(409).json({ message: "User already exists" });
+    }
+
+    existingUser.connected = false;
+
+    fs.writeFile("./db.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) {
+        return res.status(500).json({ message: "Error saving user" });
+      }
+
+      
+      return res.status(200).json();
+    });
   }
 };
 

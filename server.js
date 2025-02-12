@@ -1,6 +1,6 @@
 const express = require("express");
 const { getDbData } = require("./api/controllers/getDb");
-const { authenticateUser, registerUser } = require("./api/controllers/auth");
+const { authenticateUser, registerUser, delog } = require("./api/controllers/auth");
 const { userLocation } = require("./api/controllers/locations");
 const { deleteFriend, searchFriend, inviteUser, acceptInvite, refuseInvite } = require("./api/controllers/friends");
 
@@ -31,7 +31,7 @@ app.post("/refuse", refuseInvite);
 
 app.post("/register", registerUser);
 
-
+app.post("/delog", delog)
 
 // Lancer le serveur
 app.listen(port, () => {
