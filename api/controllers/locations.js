@@ -30,11 +30,14 @@ module.exports = {
         let friendsData = db.users.filter(u => user.friends && user.friends.includes(u.email));
 
         // Construire la réponse (liste des amis)
-        res.status(200).json(friendsData.map(friend => ({
-            email: friend.email,
-            lat: parseFloat(friend.position.lat.toFixed(6)),
-            lon: parseFloat(friend.position.lon.toFixed(6)),
-            connected: friend.connected
-        })));
+        res.status(200).json({
+            friends: friendsData.map(friend => ({
+                email: friend.email,
+                lat: parseFloat(friend.position.lat.toFixed(6)),
+                lon: parseFloat(friend.position.lon.toFixed(6)),
+                connected: friend.connected,
+            })),
+            invitations: user.invitations || [] // Retourne une liste vide si "invitations" n'existe pas
+        });
     }
 };
