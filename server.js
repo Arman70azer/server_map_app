@@ -31,13 +31,7 @@ app.post("/refuse", refuseInvite);
 
 app.post("/register", registerUser);
 
-// Autres routes (par exemple pour la mise à jour de l'utilisateur)
-app.put("/users", (req, res) => {
-  const { name, avatar } = req.body;
-  // Logique pour mettre à jour l'utilisateur
-  // Par exemple, modifier le db.json ou répondre avec des données modifiées
-  res.status(200).json({ message: "Utilisateur mis à jour", name, avatar });
-});
+
 
 // Lancer le serveur
 app.listen(port, () => {
