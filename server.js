@@ -1,6 +1,7 @@
 const express = require("express");
 const { getDbData } = require("./api/controllers/getDb");
 const { authenticateUser, registerUser } = require("./api/controllers/auth");
+const { userLocation } = require("./api/controllers/locations");
 
 const app = express();
 const port = 8080;
@@ -14,6 +15,8 @@ app.use(express.json());
 app.get("/api", getDbData);
 
 app.post("/auth", authenticateUser);
+
+app.post("/locations", userLocation);
 
 app.post("/register", registerUser);
 

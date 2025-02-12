@@ -1,10 +1,13 @@
 {
     "users": [
-      { "id": 1, "email": "token", "password": "azerty", "connected": false, "position":{
+      { "id": 1, "email": "token@gmail.com", "password": "azerty", "connected": false, "position":{
         "lat":0.0,
         "lon":0.0
-      }},
-      { "id": 2, "email": "token456", "password": "azerty", "connected": false }
+      }, "friends": ["token4@gmail.com"]},
+      { "id": 2, "email": "token4@gmail.com", "password": "azerty", "connected": false,"position":{
+        "lat":0.0,
+        "lon":0.0
+      }, "friends": ["token@gmail.com"] }
     ]
   }
   
