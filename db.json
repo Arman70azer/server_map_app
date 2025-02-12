@@ -3,7 +3,7 @@
       { "id": 1, "email": "token@gmail.com", "password": "azerty", "connected": false, "position":{
         "lat":0.0,
         "lon":0.0
-      }, "friends": ["token4@gmail.com"], "invitations":["token4gmail.com"]},
+      }, "friends": ["token4@gmail.com"]},
       { "id": 2, "email": "token4@gmail.com", "password": "azerty", "connected": false,"position":{
         "lat":0.1,
         "lon":0.1

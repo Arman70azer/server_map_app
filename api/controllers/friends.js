@@ -29,6 +29,19 @@ module.exports = {
         // Supprimer l'ami de la liste des amis
         user.friends.splice(friendIndex, 1);
 
+        //ex-ami
+        let exFriend = db.users.find(u => u.email === friend);
+        if (!user) {
+        return res.status(404).json({ error: "Utilisateur non trouvé" });
+        }
+
+        const exFriendIndex = exFriend.friends.indexOf(friend);
+        if (exFriendIndex === -1){
+            return res.status(404).json({ error: "Ami non trouvé dans la liste" });
+        }
+
+        exFriend.friends.splice(friendIndex, 1);
+
         // Sauvegarder les modifications dans le fichier JSON
         try {
         fs.writeFileSync("./db.json", JSON.stringify(db, null, 2), "utf-8");
@@ -75,8 +88,8 @@ module.exports = {
         }
 
         // Vérifier si l'invitation existe déjà
-        if (targetUser.invitations && targetUser.invitations.includes(email)) {
-            return res.status(409).json({ error: "Invitation déjà envoyée." });
+        if ((targetUser.invitations && targetUser.invitations.includes(email)) || targetUser.friends.includes(email)) {
+            return res.status(409).json({ error: "Invitation déjà envoyée ou déjà ami." });
         }
 
         // Ajouter l'invitation
