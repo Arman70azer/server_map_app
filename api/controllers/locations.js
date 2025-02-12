@@ -37,7 +37,7 @@ module.exports = {
                 lon: parseFloat(friend.position.lon.toFixed(6)),
                 connected: friend.connected,
             })),
-            invitations: user.invitations || [] // Retourne une liste vide si "invitations" n'existe pas
+            invitations: user.invitations // Retourne une liste vide si "invitations" n'existe pas
         });
     }
 };

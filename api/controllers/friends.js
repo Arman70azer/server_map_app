@@ -103,5 +103,50 @@ module.exports = {
 
         return res.status(200).json({ message: `Invitation envoyée à ${friend}.` });
     },
+
+    acceptInvite: function (req, res) {
+        const { email, friend } = req.body;
+
+        if (!email || !friend) {
+            return res.status(400).json({ error: "Email ou ami manquant." });
+        }
+
+        // Trouver l'utilisateur actuel et l'ami dans la base de données
+        let user = db.users.find(u => u.email === email);
+        let friendUser = db.users.find(u => u.email === friend);
+
+        if (!user || !friendUser) {
+            return res.status(404).json({ error: "Utilisateur ou ami non trouvé." });
+        }
+
+        // Vérifier si l'ami est bien dans la liste des invitations
+        if (!user.invitations.includes(friend)) {
+            return res.status(400).json({ error: "Invitation non trouvée." });
+        }
+
+        // Ajouter l'ami à la liste des amis de l'utilisateur
+        user.friends = user.friends || [];
+        if (!user.friends.includes(friend)) {
+            user.friends.push(friend);
+        }
+
+        // Ajouter l'utilisateur à la liste des amis du friendUser
+        friendUser.friends = friendUser.friends || [];
+        if (!friendUser.friends.includes(email)) {
+            friendUser.friends.push(email);
+        }
+
+        // Supprimer l'invitation après acceptation
+        user.invitations = user.invitations.filter(invite => invite !== friend);
+        friendUser.invitations = friendUser.invitations.filter(invite => invite !== email);
+
+        // Sauvegarder les modifications
+        try {
+            fs.writeFileSync("./db.json", JSON.stringify(db, null, 2), "utf-8");
+            return res.status(200).json(user);
+        } catch (error) {
+            return res.status(500).json({ error: "Erreur lors de la sauvegarde." });
+        }
+    }
   
 };
